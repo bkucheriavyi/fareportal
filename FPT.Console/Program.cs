@@ -1,37 +1,36 @@
 ﻿using System;
+using System.Threading.Tasks;
+using McMaster.Extensions.CommandLineUtils;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace FPT.Console
+namespace FPT.ConsoleApp
 {
     class Program
     {
-        static void Main(string[] args)
+        public static int Main(string[] args)
         {
-            System.Console.WriteLine("Hello World!");
-            string beverageId = args[0];
-            string additives = args[1];
+            var services = Bootstrap();
+            var app = new CommandLineApplication<OrderConsoleApplication>();
+            app.Conventions
+                .UseDefaultConventions()
+                .UseConstructorInjection(services);
+            return app.Execute(args);
         }
-    }
 
-    public class Beverage
-    {
-        public int Id {get;set}
-        public string Name {get;set;}
-        public double Price {get;set;}
-        public DringType DrinkType {get;set}
-    }
-
-    [Flags]
-    public enum DrinkType : int
-    {
-        Coffee = 0,
-        Tea = 1
-    }
-    
-    public class Additive
-    {
-        public int Id {get;set;}
-        public string Name {get;set;}
-        public double Price {get;set;}
-        public enum DrinkType AdditiveFor {get; set;}
+        private static IServiceProvider Bootstrap()
+        {
+            var services = new ServiceCollection();
+            services.AddSingleton<IConsole>(PhysicalConsole.Singleton);
+            services.AddScoped<OrderConsoleApplication>();
+            ConfigureLogging(services);
+            
+            return services.BuildServiceProvider();
+        }
+        
+        private static void ConfigureLogging(IServiceCollection serviceCollection)
+        {
+            serviceCollection.AddLogging(c=> c.AddConsole());
+        }
     }
 }
