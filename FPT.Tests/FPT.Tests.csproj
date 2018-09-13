@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\FPT.Business\FPT.Business.csproj" />
     <ProjectReference Include="..\FPT.Console\FPT.Console.csproj" />
+    <ProjectReference Include="..\FPT.Database\FPT.Database.csproj" />
   </ItemGroup>
 
   <ItemGroup>
