@@ -1,0 +1,70 @@
+﻿{
+  "beverages": [
+    {
+      "id": 1,
+      "name": "coffee",
+      "price": "15"
+    },
+    {
+      "id": 2,
+      "name": "tea",
+      "price": "10"
+    }
+  ],
+  "additives": [
+    {
+      "id": 1,
+      "name": "Chocolate topping",
+      "group": 1,
+      "price": "2"
+    },
+    {
+      "id": 2,
+      "name": "Strawberry topping ",
+      "group": 1,
+      "price": "2"
+    },
+    {
+      "id": 3,
+      "name": "Milk",
+      "group": 3,
+      "price": "2"
+    },
+    {
+      "id": 4,
+      "name": "Sugar",
+      "group": 3,
+      "price": "1"
+    },
+    {
+      "id": 5,
+      "name": "Cinnamon",
+      "group": 3,
+      "price": "3"
+    },
+    {
+      "id": 6,
+      "name": "Lemon",
+      "group": 3,
+      "price": "1"
+    }
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "name": "Tea"
+    },
+    {
+      "id": 2,
+      "name": "Coffee"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "beverageId": 1,
+      "additives": "",
+      "totalCost": ""
+    }
+  ]
+}

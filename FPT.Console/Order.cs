@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FPT.ConsoleApp
 {
-    internal class Order
+    public class Order
     {
-        private string beverageId;
+        public int Id { get; set; }
 
-        public Order(string beverageId)
-        {
-            this.beverageId = beverageId;
-        }
+        public List<Beverage> Beverages { get; set; }
 
-        internal object AddBeverage(string beverageId)
-        {
-            throw new NotImplementedException();
-        }
+        public List<Additive> Additives { get; set; }
+
+        public double Total { get; internal set; }
     }
 }

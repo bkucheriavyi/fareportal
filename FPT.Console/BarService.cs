@@ -1,6 +1,6 @@
 ﻿namespace FPT.ConsoleApp
 {
-    internal class BarService
+    public class BarService
     {
         public BarService()
         {

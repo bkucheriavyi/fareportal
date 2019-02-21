@@ -14,31 +14,40 @@ namespace FPT.ConsoleApp
             var barService = new BarService();
             var bartender = new Bartender(!string.IsNullOrEmpty(args[0]) ? args[0] : "", barService);
 
-
-
             var actions = new Actions<Bartender>(null);
 
             actions.Register(1, "Create order", a =>
             {
-                System.Console.WriteLine("Enter beverage:");
-                var beverageId = a.
-                var order = a.Actor.CreateOrder()
-                                   .AddBeverage(beverageId);
+                while (true)
+                {
+                    try
+                    {
+                        var order = a.Actor.CreateOrder();
 
-                System.Console.WriteLine("Enter additives:");
-                var additives = System.Console.ReadLine();
+                        a.Out.WriteLine("Enter beverage:");
+                        var beverageId = a.In.ReadLine();
 
-                bartender.GetOrder(order.Id)
-                       .AddAdditives(additives);
+                        order = a.Actor.AddBeverage(order, beverageId);
+
+                        a.Out.WriteLine("Enter additives:");
+                        var additives = a.In.ReadLine();
+
+                        order = a.Actor.AddAdditives(order, additives);
+                        order = a.Actor.CloseOrder(order);
+
+                        a.Out.WriteLine($"Cost: {order.Total}");
+
+                        break;
+                    }
+                    catch (Exception ex)
+                    {
+                        a.Out.WriteLine($"Sorry, an error occured: {ex.Message}, please, try again");
+                        continue;
+                    }
+                }
             });
 
-           // actions.Register(2, "Modify order", () => { });
-          //  actions.Register(3, "List orders", () => {
-          //      var ordersList = bartender.GetAllOpenedOrders();
-          //      System.Console.WriteLine(string.Join("\n", ordersList.Select(o => o.ToString())));
-         //  });
-
-            return actions.Run(bartender, System.Console.In);
+            return actions.Run(bartender, System.Console.In, System.Console.Out);
         }
 
         private static IServiceProvider Bootstrap()
@@ -53,6 +62,6 @@ namespace FPT.ConsoleApp
         }
     }
 
-  //  public static DoWhile
+    //  public static DoWhile
 
 }

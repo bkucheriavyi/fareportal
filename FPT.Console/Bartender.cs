@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FPT.ConsoleApp
 {
-    internal class Bartender : IActor
+    public class Bartender : IActor, IBartender
     {
         private readonly BarService _barService;
 
@@ -15,23 +15,27 @@ namespace FPT.ConsoleApp
             _barService = barService;
         }
 
-        internal void CreateOrder(Order order)
+        public Order CreateOrder()
         {
             throw new NotImplementedException();
         }
 
-        internal object CreateOrder()
-        {
-            var createNewOrderCommand =  new CreateNewOrderCommand();
-            throw new NotImplementedException();
-        }
-
-        internal Order GetOrder(object id)
+        public Order GetOrder(object id)
         {
             throw new NotImplementedException();
         }
 
-        internal IEnumerable<Order> GetAllOpenedOrders()
+        public Order AddAdditives(Order order, string additives)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order CloseOrder(Order order)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Order AddBeverage(Order order, string beverageId)
         {
             throw new NotImplementedException();
         }
