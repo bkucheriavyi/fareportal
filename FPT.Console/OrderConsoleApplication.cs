@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Linq;
-using FPT.Business;
-using McMaster.Extensions.CommandLineUtils;
-using Microsoft.Extensions.Logging;
 
 namespace FPT.ConsoleApp
 {
-    public class OrderConsoleApplication: IExecutable
+   /* public class OrderConsoleApplication: IExecutable
     {
         private readonly ILogger _logger;
         private readonly IConsole _console;
@@ -124,5 +120,6 @@ namespace FPT.ConsoleApp
     {
         void OnExecute();
     }
+    */
 }
 
