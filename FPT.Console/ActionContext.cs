@@ -2,7 +2,7 @@
 
 namespace FPT.ConsoleApp
 {
-    public class ActionContext<T> : IActorContext<T>
+    public class ActionContext<T> : IActorContext<T> where T: IActor
     {
         public T Actor { get; private set; }
         public TextReader In { get; private set; }

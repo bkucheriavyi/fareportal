@@ -10,11 +10,10 @@ namespace FPT.ConsoleApp
     {
         public static int Main(string[] args)
         {
-            var validator = new Validator();
             var barService = new BarService();
-            var bartender = new Bartender(!string.IsNullOrEmpty(args[0]) ? args[0] : "", barService);
+            var bartender = new Bartender("Joe", barService);
 
-            var actions = new Actions<Bartender>(null);
+            var actions = new Actions<Bartender>();
 
             actions.Register(1, "Create order", a =>
             {
@@ -22,11 +21,9 @@ namespace FPT.ConsoleApp
                 {
                     try
                     {
-                        var order = a.Actor.CreateOrder();
-
                         a.Out.WriteLine("Enter beverage:");
                         var beverageId = a.In.ReadLine();
-
+                        var order = a.Actor.CreateOrder();
                         order = a.Actor.AddBeverage(order, beverageId);
 
                         a.Out.WriteLine("Enter additives:");
@@ -35,7 +32,7 @@ namespace FPT.ConsoleApp
                         order = a.Actor.AddAdditives(order, additives);
                         order = a.Actor.CloseOrder(order);
 
-                        a.Out.WriteLine($"Cost: {order.Total}");
+                        a.Out.WriteLine($"Cost: ${order.Total}");
 
                         break;
                     }

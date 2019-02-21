@@ -11,13 +11,6 @@ namespace FPT.ConsoleApp
 
         private readonly IDictionary<int, (string, Action<IActorContext<T>>)> _actions = new SortedDictionary<int, (string, Action<IActorContext<T>>)>();
 
-        private readonly ILogger _logger;
-
-        public Actions(ILogger logger)
-        {
-            _logger = logger;
-        }
-
         public void Register(int key, string name, Action<IActorContext<T>> action)
         {
             if (_actions.ContainsKey(key))
@@ -28,31 +21,56 @@ namespace FPT.ConsoleApp
             _actions.Add(key, (name, action));
         }
 
+        public IEnumerable<string> GetRegisteredActionsInfo()
+        {
+            foreach (var action in _actions)
+            {
+                var (name, _) = action.Value;
+                yield return $"{action.Key}. {name}";
+            }
+        }
+
         public int Run(T actor, TextReader input, TextWriter output)
         {
-            _logger.LogInformation($"Hi {actor.Name}, today is {DateTime.Now.ToShortDateString()}!");
+            output.WriteLine($"Hi {actor.Name}, today is {DateTime.Now.ToShortDateString()}!");
+            output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
 
             string value;
             while (!(value = input.ReadLine()).Equals(EXIT_CONST, StringComparison.OrdinalIgnoreCase))
             {
-                if (!int.TryParse(value, out int actionId))
+                var (actionId, error) = this.ParseActionId(value, actor);
+
+                if (error != null)
                 {
-                    _logger.LogError($" {input} Wrong input, try one more time");
+                    output.WriteLine(error);
+                    output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
+                    continue;
                 }
 
                 Execute(actionId, actor, input, output);
+                output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
             }
 
             return 0;
         }
 
-        private void Execute(int actionId, T actor, TextReader input, TextWriter output)
+        private (int, string) ParseActionId(string value,IActor actor)
         {
-            if (!_actions.ContainsKey(actionId))
+            if (!int.TryParse(value, out int actionId))
             {
-                throw new InvalidOperationException($"Sorry {actor.Name}, there is no action registered with #{actionId}");
+                return (-1, "Wrong input, expected integer ID");
             }
 
+            if (!_actions.ContainsKey(actionId))
+            {
+                return (-1, $"Sorry {actor.Name}, there is no action registered with #{actionId}");
+            }
+
+            return (actionId, null);
+        }
+
+        private void Execute(int actionId, T actor, TextReader input, TextWriter output)
+        {
             var (name, action) = _actions[actionId];
             try
             {
@@ -60,16 +78,7 @@ namespace FPT.ConsoleApp
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Unhandled exception occured while action execution.\n#{actionId} {name}", ex);
-            }
-        }
-
-        public IEnumerable<string> GetActionsInfo()
-        {
-            foreach (var action in _actions)
-            {
-                var (name, _) = action.Value;
-                yield return $"{action.Key}. {name}";
+                output.WriteLine($"Unhandled exception occured while action execution.\n#{actionId} {name}", ex);
             }
         }
     }
