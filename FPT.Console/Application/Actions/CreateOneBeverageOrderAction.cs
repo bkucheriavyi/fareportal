@@ -2,7 +2,7 @@
 
 namespace FPT.ConsoleApp
 {
-    public class CreateAndCloseOneBeverageOrderAction : AppAction<IBartender>
+    public class CreateOneBeverageOrderAction : AppAction<IBartender>
     {
         public override void Action(IActorContext<IBartender> context)
         {
