@@ -8,6 +8,8 @@ namespace FPT.ConsoleApp
 
         public int Name { get; set; }
 
+        public AdditiveGroup Group {get; set;}
+
         public List<Additive> Additives { get; set; }
     }
 }

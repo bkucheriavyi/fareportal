@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace FPT.ConsoleApp
 {
@@ -10,55 +7,24 @@ namespace FPT.ConsoleApp
     {
         public static int Main(string[] args)
         {
-            var barService = new BarService();
+            var barService = new BarService(null, null);
             var bartender = new Bartender("Joe", barService);
 
-            var actions = new Actions<Bartender>();
+            var app = new ConsoleApplication<IBartender>();
 
-            actions.Register(1, "Create order", a =>
-            {
-                while (true)
-                {
-                    try
-                    {
-                        a.Out.WriteLine("Enter beverage:");
-                        var beverageId = a.In.ReadLine();
-                        var order = a.Actor.CreateOrder();
-                        order = a.Actor.AddBeverage(order, beverageId);
+            app.Register(1, "Create order", new CreateAndCloseOneBeverageOrderAction());
+            app.Register(2, "Modify opened order", new DefaultBartenderAction());
+            app.Register(3, "List closed orders", new DefaultBartenderAction());
+            app.Register(4, "Close all pending orders", new DefaultBartenderAction());
 
-                        a.Out.WriteLine("Enter additives:");
-                        var additives = a.In.ReadLine();
-
-                        order = a.Actor.AddAdditives(order, additives);
-                        order = a.Actor.CloseOrder(order);
-
-                        a.Out.WriteLine($"Cost: ${order.Total}");
-
-                        break;
-                    }
-                    catch (Exception ex)
-                    {
-                        a.Out.WriteLine($"Sorry, an error occured: {ex.Message}, please, try again");
-                        continue;
-                    }
-                }
-            });
-
-            return actions.Run(bartender, System.Console.In, System.Console.Out);
+            return app.Run(bartender, Console.In, Console.Out);
         }
 
         private static IServiceProvider Bootstrap()
         {
             var services = new ServiceCollection();
-            //services.AddScoped<OrderConsoleApplication>();
-
-
-            services.AddLogging(c => c.AddConsole());
 
             return services.BuildServiceProvider();
         }
     }
-
-    //  public static DoWhile
-
 }

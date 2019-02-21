@@ -1,16 +1,22 @@
 ﻿{
+  /*new beverages should have group value equals to next power
+  of 2 of previous value, e.g 1,2,4,8,16,32,64...*/
   "beverages": [
     {
       "id": 1,
       "name": "coffee",
-      "price": "15"
+      "price": "15",
+      "group": 2
     },
     {
       "id": 2,
       "name": "tea",
-      "price": "10"
+      "price": "10",
+      "group": 1
     }
   ],
+  /*additive group it's sum of beverage group value they are belong, 
+  eg. milk is for both team and coffe so group is 3 (1+2)*/
   "additives": [
     {
       "id": 1,
@@ -49,6 +55,8 @@
       "price": "1"
     }
   ],
+  /*groups are not in use yet, since groups values are hardcoded in baverage
+  so it's technical debt for now*/
   "groups": [
     {
       "id": 1,
@@ -57,14 +65,6 @@
     {
       "id": 2,
       "name": "Coffee"
-    }
-  ],
-  "orders": [
-    {
-      "id": 1,
-      "beverageId": 1,
-      "additives": "",
-      "totalCost": ""
     }
   ]
 }

@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.Extensions.Logging;
 
 namespace FPT.ConsoleApp
 {
-    public class Actions<T> where T : IActor
+    public class ConsoleApplication<T> where T : IActor
     {
         public const string EXIT_CONST = "exit";
 
-        private readonly IDictionary<int, (string, Action<IActorContext<T>>)> _actions = new SortedDictionary<int, (string, Action<IActorContext<T>>)>();
+        private readonly IDictionary<int, (string, IAction<T>)> _actions = new SortedDictionary<int, (string, IAction<T>)>();
 
-        public void Register(int key, string name, Action<IActorContext<T>> action)
+        public void Register(int key, string name, IAction<T> action)
         {
             if (_actions.ContainsKey(key))
             {
@@ -33,7 +32,7 @@ namespace FPT.ConsoleApp
         public int Run(T actor, TextReader input, TextWriter output)
         {
             output.WriteLine($"Hi {actor.Name}, today is {DateTime.Now.ToShortDateString()}!");
-            output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
+            PrintInfo(output);
 
             string value;
             while (!(value = input.ReadLine()).Equals(EXIT_CONST, StringComparison.OrdinalIgnoreCase))
@@ -43,15 +42,20 @@ namespace FPT.ConsoleApp
                 if (error != null)
                 {
                     output.WriteLine(error);
-                    output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
+                    PrintInfo(output);
                     continue;
                 }
 
                 Execute(actionId, actor, input, output);
-                output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
+                PrintInfo(output);
             }
 
             return 0;
+        }
+
+        private void PrintInfo(TextWriter output) 
+        {
+            output.WriteLine(string.Join(Environment.NewLine, this.GetRegisteredActionsInfo()));
         }
 
         private (int, string) ParseActionId(string value,IActor actor)
@@ -74,7 +78,7 @@ namespace FPT.ConsoleApp
             var (name, action) = _actions[actionId];
             try
             {
-                action(new ActionContext<T>(actor, input, output));
+                action.Execute(new ActorContext<T>(actor, input, output));
             }
             catch (Exception ex)
             {

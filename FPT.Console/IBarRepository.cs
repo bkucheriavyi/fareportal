@@ -1,6 +1,6 @@
 ﻿namespace FPT.ConsoleApp
 {
-    public interface IBartender
+    public interface IBarRepository<T>
     {
     }
 }

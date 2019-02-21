@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FPT.ConsoleApp
 {
-    public class Bartender : IActor, IBartender
+    public class Bartender : IBartender
     {
-        private readonly BarService _barService;
+        public const char BEVARAGE_STING_SEPARATOR = ',';
+
+        private readonly IBarService _barService;
+
+        private List<Order> _pendingOrders = new List<Order>();
 
         public string Name { get; }
 
-        public Bartender(string name, BarService barService)
+        public Bartender(string name, IBarService barService)
         {
             Name = name;
             _barService = barService;
@@ -17,27 +22,80 @@ namespace FPT.ConsoleApp
 
         public Order CreateOrder()
         {
-            throw new NotImplementedException();
-        }
+            var newOrder =  new Order(_pendingOrders.Count);
+            _pendingOrders.Add(newOrder);
 
-        public Order GetOrder(object id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Order AddAdditives(Order order, string additives)
-        {
-            throw new NotImplementedException();
+            return newOrder;
         }
 
         public Order CloseOrder(Order order)
         {
-            throw new NotImplementedException();
+            var closingOrder = _pendingOrders.First(o => o.Id == order.Id);
+            var closedOrder = _barService.CloseOrder(closingOrder);
+
+            _pendingOrders.Remove(closingOrder);
+
+            return closedOrder;
         }
 
-        public Order AddBeverage(Order order, string beverageId)
+        public Beverage GetBeverage(string beverageString)
         {
-            throw new NotImplementedException();
+            var (beverageId, err) = this.ParseStringToIntId(beverageString);
+            if (err != null)
+            {
+                throw new InvalidOperationException(err);
+            }
+
+            var beverage = _barService.GetBeverages(new int[] { beverageId})
+                                      .FirstOrDefault(b => b.Id == beverageId);
+
+            if (beverage == null)
+                throw new InvalidOperationException($"No beverages with id {beverageId} were found");
+
+            return beverage;
+        }
+
+        public List<Additive> GetAdditives(Beverage beverage, string additivesString)
+        {
+            var (customerAdditivesIds, err) = this.ParseAdditivesString(additivesString);
+            if (err != null)
+            {
+                throw new InvalidOperationException(err);
+            }
+
+            var existingAdditives = _barService.GetAdditives(customerAdditivesIds);
+
+            if (existingAdditives.Any(ca => !ca.Group.HasFlag(beverage.Group)))
+            {
+                throw new InvalidOperationException($"Some of the additives is not be compatible with {beverage.Name}");
+            }
+
+            return existingAdditives.ToList();
+        }
+
+        private (int[], string) ParseAdditivesString(string additivesString)
+        {
+            var result = additivesString.Split(BEVARAGE_STING_SEPARATOR)
+                                        .Select(ParseStringToIntId);
+
+            var (_, error) = result.FirstOrDefault(r => r.Error != null);
+
+            if (error != null)
+            {
+                return (null, error);
+            }
+
+            return (result.Select(r => r.Id).ToArray(), null);
+        }
+
+        private (int Id, string Error) ParseStringToIntId(string input)
+        {
+            if (!int.TryParse(input, out int beverageId))
+            {
+                return (-1, $"Failed to parse string '{input}', integer value expected");
+            }
+
+            return (beverageId, null);
         }
     }
 }
