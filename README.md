@@ -3,6 +3,9 @@
 # fareportal
 Cosole application that will calculate the cost of a beverage with additives. 
 
+## Prerequisites
+Packed version of application requires only .NET Core 2.1 runtime installed and latest .NET Core CLI tools.
+
 ### How to run application
 ```
 cd FPT.Console/
