@@ -151,14 +151,15 @@ namespace FPT.Tests
         {
             //given
             var beverage = new Beverage { Id = 1, Name = "Test Name", Group = AdditiveGroup.Coffe };
+
             var additive4 = new Additive { Id = 4, Group = AdditiveGroup.Tea | AdditiveGroup.Coffe };
             var additive3 = new Additive { Id = 3, Group = AdditiveGroup.Tea };
-            var barService = Mock.Of<IBarService>(s => s.GetAdditives(new[] { 1 }) == new[] { additive4, additive3, additive4 });
+            var barService = Mock.Of<IBarService>(s => s.GetAdditives(new[] { 4,3,4 }) == new[] { additive4, additive3, additive4 });
             var bartender = new Bartender("Test Bot", barService);
 
             //when
             //then
-            var ex = Assert.Throws<InvalidOperationException>(() => bartender.GetAdditives(beverage, "1"));
+            var ex = Assert.Throws<InvalidOperationException>(() => bartender.GetAdditives(beverage, "4,3,4"));
             Assert.That(ex.Message, Is.EqualTo($"Some of the additives is not be compatible with Test Name\n"));
         }
     }

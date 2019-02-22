@@ -24,7 +24,7 @@ namespace FPT.Business
 
         public Order CreateOrder()
         {
-            var newOrder =  new Order(_pendingOrders.Count + 1);
+            var newOrder = new Order(_pendingOrders.Count + 1);
             _pendingOrders.Add(newOrder);
 
             return newOrder;
@@ -67,7 +67,14 @@ namespace FPT.Business
 
             var existingAdditives = _barService.GetAdditives(customerAdditivesIds);
 
-            if (existingAdditives.Any(ca => !ca.Group.HasFlag(beverage.Group)))
+            if (existingAdditives.Length != customerAdditivesIds.Length)
+            {
+                var notFound = customerAdditivesIds.Where(id => !existingAdditives.Any(a => a.Id == id)).ToArray();
+                if (notFound.Length > 0)
+                    throw new InvalidOperationException($"Missing additives with id: {string.Join(",", notFound)}");
+            }
+
+            if (existingAdditives.Any(a => !a.Group.HasFlag(beverage.Group)))
             {
                 throw new InvalidOperationException($"Some of the additives is not be compatible with {beverage.Name}\n");
             }
@@ -78,7 +85,7 @@ namespace FPT.Business
         private (int[], string) ParseAdditivesString(string additivesString)
         {
             var result = additivesString.Split(BEVARAGE_STING_SEPARATOR)
-                                        .Select(a=> a.Trim())
+                                        .Select(a => a.Trim())
                                         .Select(ParseStringToIntId);
 
             var (_, error) = result.FirstOrDefault(r => r.Error != null);

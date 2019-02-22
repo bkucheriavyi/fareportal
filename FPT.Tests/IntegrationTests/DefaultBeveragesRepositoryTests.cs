@@ -15,7 +15,7 @@ namespace FPT.Tests.IntegrationTests
             var repo = new DefaultBeveragesRepository();
 
             //when
-            var result = repo.Get(new[] { 1,2,3 });
+            var result = repo.Get(new[] { 1, 2, 3, 33, 65, -100 });
 
             //then
 

@@ -20,7 +20,9 @@ namespace FPT.Business.Repositories
 
         public Additive[] Get(int[] ids)
         {
-            return ids.Select(id => _root.Additives.FirstOrDefault(b => b.Id == id)).SkipWhile(b => b == null).ToArray();
+            return ids.Select(id => _root.Additives.FirstOrDefault(b => b.Id == id))
+                                                   .Where(b => b != null)
+                                                   .ToArray();
         }
 
         private class RootObject

@@ -5,7 +5,7 @@ namespace FPT.Business.Services.Model
     [Flags]
     public enum AdditiveGroup
     {
-        Tea = 1,
-        Coffe = 2
+        Coffe = 1,
+        Tea = 2
     }
 }
