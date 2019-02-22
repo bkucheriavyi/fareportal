@@ -1,4 +1,7 @@
-﻿using FPT.ConsoleApp;
+﻿using FPT.Business.Repositories;
+using FPT.Business.Services;
+using FPT.Business.Services.Interaces;
+using FPT.Business.Services.Model;
 using Moq;
 using NUnit.Framework;
 

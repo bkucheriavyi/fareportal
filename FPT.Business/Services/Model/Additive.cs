@@ -1,4 +1,4 @@
-﻿namespace FPT.ConsoleApp
+﻿namespace FPT.Business.Services.Model
 {
     public class Additive
     {

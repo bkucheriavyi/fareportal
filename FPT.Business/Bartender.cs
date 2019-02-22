@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FPT.Business.Services.Interaces;
+using FPT.Business.Services.Model;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business
 {
     public class Bartender : IBartender
     {

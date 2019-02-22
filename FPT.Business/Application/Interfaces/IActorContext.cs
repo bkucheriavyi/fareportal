@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application.Interfaces
 {
     public interface IActorContext<T> where T : IActor
     {

@@ -1,5 +1,5 @@
-﻿using FPT.Console;
-using FPT.ConsoleApp;
+﻿using FPT.Business.Repositories;
+using FPT.Business.Services.Model;
 using NUnit.Framework;
 
 namespace FPT.Tests.IntegrationTests

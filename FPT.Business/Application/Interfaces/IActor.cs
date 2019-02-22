@@ -1,4 +1,4 @@
-﻿namespace FPT.ConsoleApp
+﻿namespace FPT.Business.Application.Interfaces
 {
     public interface IActor
     {

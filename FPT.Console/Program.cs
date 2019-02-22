@@ -1,5 +1,9 @@
 ﻿using System;
-using FPT.Console;
+using FPT.Business;
+using FPT.Business.Application;
+using FPT.Business.Application.Actions;
+using FPT.Business.Repositories;
+using FPT.Business.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FPT.ConsoleApp
@@ -11,6 +15,7 @@ namespace FPT.ConsoleApp
             var barService = new BarService(new DefaultBeveragesRepository(),
                                             new DefaultAdditivesRepository(),
                                             new DefaultBarCalculator());
+
             var bartender = new Bartender("Joe", barService);
 
             var app = new ConsoleApplication<IBartender>();
@@ -20,7 +25,7 @@ namespace FPT.ConsoleApp
             app.Register(3, "List closed orders", new DefaultBartenderAction());
             app.Register(4, "Close all pending orders", new DefaultBartenderAction());
 
-            return app.Run(bartender, System.Console.In, System.Console.Out);
+            return app.Run(bartender, Console.In, Console.Out);
         }
 
         private static IServiceProvider Bootstrap()

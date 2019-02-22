@@ -13,13 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FPT.Console\FPT.Console.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="IntegrationTests\" />
     <Folder Include="UnitTests\" />
     <Folder Include="UnitTests\Application\" />
     <Folder Include="IntegrationTests\Application\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FPT.Business\FPT.Business.csproj" />
+    <ProjectReference Include="..\FPT.Console\FPT.Console.csproj" />
   </ItemGroup>
 </Project>

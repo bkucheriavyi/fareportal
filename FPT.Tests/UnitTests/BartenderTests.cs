@@ -1,5 +1,7 @@
 ﻿using System;
-using FPT.ConsoleApp;
+using FPT.Business;
+using FPT.Business.Services.Interaces;
+using FPT.Business.Services.Model;
 using Moq;
 using NUnit.Framework;
 

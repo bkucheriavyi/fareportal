@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using FPT.Business.Repositories;
+using FPT.Business.Services.Interaces;
+using FPT.Business.Services.Model;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Services
 {
     public class BarService : IBarService
     {

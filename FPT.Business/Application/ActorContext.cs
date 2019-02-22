@@ -1,6 +1,7 @@
 ﻿using System.IO;
+using FPT.Business.Application.Interfaces;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application
 {
     public class ActorContext<T> : IActorContext<T> where T: IActor
     {

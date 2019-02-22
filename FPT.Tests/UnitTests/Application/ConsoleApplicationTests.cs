@@ -1,7 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using FPT.ConsoleApp;
+using FPT.Business.Application;
+using FPT.Business.Application.Interfaces;
 using Moq;
 using NUnit.Framework;
 

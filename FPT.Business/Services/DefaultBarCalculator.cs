@@ -1,7 +1,7 @@
-﻿using System;
-using FPT.ConsoleApp;
+﻿using FPT.Business.Services.Interaces;
+using FPT.Business.Services.Model;
 
-namespace FPT.Console
+namespace FPT.Business.Services
 {
     public class DefaultBarCalculator : IBarCalculator
     {

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using FPT.Business.Services.Model;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Services.Interaces
 {
     public interface IBarService
     {

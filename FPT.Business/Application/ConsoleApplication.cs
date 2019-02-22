@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using FPT.Business.Application.Interfaces;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application
 {
     public class ConsoleApplication<T> where T : IActor
     {

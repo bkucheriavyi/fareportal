@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using FPT.Business.Application.Interfaces;
+using FPT.Business.Services.Model;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application.Actions
 {
     public class CreateOneBeverageOrderAction : AppAction<IBartender>
     {

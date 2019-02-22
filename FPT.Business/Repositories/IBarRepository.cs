@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace FPT.ConsoleApp
+﻿namespace FPT.Business.Repositories
 {
     public interface IBarRepository<T>
     {

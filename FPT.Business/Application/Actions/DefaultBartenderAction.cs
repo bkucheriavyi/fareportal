@@ -1,6 +1,7 @@
 ﻿using System;
+using FPT.Business.Application.Interfaces;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application.Actions
 {
     public class DefaultBartenderAction : AppAction<IBartender>
     {

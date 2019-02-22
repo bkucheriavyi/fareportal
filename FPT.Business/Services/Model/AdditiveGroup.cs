@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Services.Model
 {
     [Flags]
     public enum AdditiveGroup

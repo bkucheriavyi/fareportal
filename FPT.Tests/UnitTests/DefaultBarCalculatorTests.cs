@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using FPT.Console;
-using FPT.ConsoleApp;
+using FPT.Business.Services;
+using FPT.Business.Services.Model;
 using NUnit.Framework;
 
 namespace FPT.Tests

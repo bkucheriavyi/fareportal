@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Services.Model
 {
     public class Beverage
     {

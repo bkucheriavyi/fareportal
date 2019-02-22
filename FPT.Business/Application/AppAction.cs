@@ -1,6 +1,7 @@
 ﻿using System;
+using FPT.Business.Application.Interfaces;
 
-namespace FPT.ConsoleApp
+namespace FPT.Business.Application
 {
     public abstract class AppAction<T> : IAction<T> where T : IActor
     {

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
-using FPT.ConsoleApp;
+using FPT.Business.Services.Model;
 using Newtonsoft.Json;
 
-namespace FPT.Console
+namespace FPT.Business.Repositories
 {
     public class DefaultAdditivesRepository : IBarRepository<Additive>
     {
