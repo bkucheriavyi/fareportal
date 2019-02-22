@@ -13,11 +13,11 @@ dotnet run
 ```
 ### How to run tests (from root derictory)
 ```
-dotnet run
+dotnet test
 ```
 #### List available tests:
 ```
-dotnet run -t
+dotnet test -t
 ```
 #### Output :
 ```
