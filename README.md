@@ -3,12 +3,12 @@
 # fareportal
 Cosole application that will calculate the cost of a beverage with additives. 
 
-###How to run application
+### How to run application
 ```
 cd FPT.Console/
 dotnet run 
 ```
-###How to run tests (from root derictory)
+### How to run tests (from root derictory)
 ```
 dotnet run
 ```
@@ -51,7 +51,7 @@ The following Tests are available:
     GetAdditives_Returns
     GetBeverages_Returns
 ```
-####Default data set
+#### Default data set
 ```
 Beverages:
 1)Coffee - Id - 1; - Cost $15
@@ -68,7 +68,7 @@ Additives for both tea and coffee:
 4)Lemon - Id - 6; - Cost $1
 ```
 
-####Example:
+#### Example:
 ```
 Hello Joe, choose action and press enter when ready:
 1. Create order
