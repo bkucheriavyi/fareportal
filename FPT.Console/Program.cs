@@ -7,7 +7,7 @@ namespace FPT.ConsoleApp
     {
         public static int Main(string[] args)
         {
-            var barService = new BarService(null, null);
+            var barService = new BarService(null, null,null);
             var bartender = new Bartender("Joe", barService);
 
             var app = new ConsoleApplication<IBartender>();
@@ -17,13 +17,13 @@ namespace FPT.ConsoleApp
             app.Register(3, "List closed orders", new DefaultBartenderAction());
             app.Register(4, "Close all pending orders", new DefaultBartenderAction());
 
-            return app.Run(bartender, Console.In, Console.Out);
+            return app.Run(bartender, System.Console.In, System.Console.Out);
         }
 
         private static IServiceProvider Bootstrap()
         {
             var services = new ServiceCollection();
-
+            //TODO: add registrations
             return services.BuildServiceProvider();
         }
     }
