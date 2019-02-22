@@ -6,13 +6,13 @@
       "id": 1,
       "name": "coffee",
       "price": "15",
-      "group": 2
+      "group": 1
     },
     {
       "id": 2,
       "name": "tea",
       "price": "10",
-      "group": 1
+      "group": 2
     }
   ],
   /*additive group it's sum of beverage group value they are belong, 
