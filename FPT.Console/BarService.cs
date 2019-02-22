@@ -18,17 +18,12 @@ namespace FPT.ConsoleApp
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Additive> GetAdditives(IEnumerable<int> ids)
+        public IEnumerable<Additive> GetAdditives(int[] ids)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<Beverage> GetBeverages()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<Beverage> GetBeverages(IEnumerable<int> ids)
+        public IEnumerable<Beverage> GetBeverages(int[] ids)
         {
             throw new System.NotImplementedException();
         }

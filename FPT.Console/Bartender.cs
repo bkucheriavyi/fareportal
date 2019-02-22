@@ -22,7 +22,7 @@ namespace FPT.ConsoleApp
 
         public Order CreateOrder()
         {
-            var newOrder =  new Order(_pendingOrders.Count);
+            var newOrder =  new Order(_pendingOrders.Count + 1);
             _pendingOrders.Add(newOrder);
 
             return newOrder;
@@ -46,11 +46,11 @@ namespace FPT.ConsoleApp
                 throw new InvalidOperationException(err);
             }
 
-            var beverage = _barService.GetBeverages(new int[] { beverageId})
+            var beverage = _barService.GetBeverages(new int[] { beverageId })
                                       .FirstOrDefault(b => b.Id == beverageId);
 
             if (beverage == null)
-                throw new InvalidOperationException($"No beverages with id {beverageId} were found");
+                throw new InvalidOperationException($"No beverages with id {beverageId} were found\n");
 
             return beverage;
         }
@@ -67,7 +67,7 @@ namespace FPT.ConsoleApp
 
             if (existingAdditives.Any(ca => !ca.Group.HasFlag(beverage.Group)))
             {
-                throw new InvalidOperationException($"Some of the additives is not be compatible with {beverage.Name}");
+                throw new InvalidOperationException($"Some of the additives is not be compatible with {beverage.Name}\n");
             }
 
             return existingAdditives.ToList();
@@ -76,6 +76,7 @@ namespace FPT.ConsoleApp
         private (int[], string) ParseAdditivesString(string additivesString)
         {
             var result = additivesString.Split(BEVARAGE_STING_SEPARATOR)
+                                        .Select(a=> a.Trim())
                                         .Select(ParseStringToIntId);
 
             var (_, error) = result.FirstOrDefault(r => r.Error != null);
@@ -92,7 +93,7 @@ namespace FPT.ConsoleApp
         {
             if (!int.TryParse(input, out int beverageId))
             {
-                return (-1, $"Failed to parse string '{input}', integer value expected");
+                return (-1, $"Failed to parse string '{input}', integer value expected\n");
             }
 
             return (beverageId, null);

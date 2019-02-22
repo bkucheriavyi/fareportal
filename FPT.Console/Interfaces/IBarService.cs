@@ -6,7 +6,7 @@ namespace FPT.ConsoleApp
     {
         Order CloseOrder(Order closingOrder);
         IEnumerable<Order> GetClosedOrders();
-        IEnumerable<Beverage> GetBeverages(IEnumerable<int> ids);
-        IEnumerable<Additive> GetAdditives(IEnumerable<int> ids);
+        IEnumerable<Beverage> GetBeverages(int[] ids);
+        IEnumerable<Additive> GetAdditives(int[] ids);
     }
 }
