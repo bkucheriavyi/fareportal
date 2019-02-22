@@ -12,7 +12,7 @@ namespace FPT.ConsoleApp
 
             var app = new ConsoleApplication<IBartender>();
 
-            app.Register(1, "Create order", new CreateAndCloseOneBeverageOrderAction());
+            app.Register(1, "Create order", new CreateOneBeverageOrderAction());
             app.Register(2, "Modify opened order", new DefaultBartenderAction());
             app.Register(3, "List closed orders", new DefaultBartenderAction());
             app.Register(4, "Close all pending orders", new DefaultBartenderAction());

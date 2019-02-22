@@ -31,7 +31,7 @@ namespace FPT.ConsoleApp
 
         public int Run(T actor, TextReader input, TextWriter output)
         {
-            output.WriteLine($"Hi {actor.Name}, today is {DateTime.Now.ToShortDateString()}!");
+            output.WriteLine($"Hello {actor.Name}, choose action and press enter when ready:");
             PrintInfo(output);
 
             string value;

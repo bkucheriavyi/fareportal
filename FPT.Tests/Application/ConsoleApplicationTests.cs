@@ -45,6 +45,80 @@ namespace FPT.Tests
         }
 
         [Test]
+        [TestCase("")]
+        [TestCase("still not and integer")]
+        [TestCase(null)]
+        public void Run_InputWasntString_NoActionCalls(string testCase)
+        {
+            //given
+            var input = $"{testCase}\nexit\n";
+            var expected = "Hello Test Bot, choose action and press enter when ready:\n1. test\nWrong input, expected integer ID\n1. test\n";
+            TextReader reader;
+            TextWriter writer;
+            var sb = new StringBuilder();
+
+            var actor = Mock.Of<IActor>(a => a.Name == "Test Bot");
+            var action = new Mock<IAction<IActor>>();
+
+            var app = new ConsoleApplication<IActor>();
+
+            app.Register(1, "test", action.Object);
+
+            //when
+            int exitCode = -1;
+            using (reader = new StringReader(input))
+            {
+                using (writer = new StringWriter(sb))
+                {
+                    exitCode = app.Run(actor, reader, writer);
+                }
+            }
+
+            //then
+            Assert.That(exitCode, Is.EqualTo(0));
+            Assert.That(sb.ToString(), Is.EqualTo(expected));
+            action.Verify(a => a.Execute(It.IsAny<IActorContext<IActor>>()), Times.Never);
+        }
+
+        [Test]
+
+        [TestCase(-1)]
+        [TestCase(0)]
+        [TestCase(int.MaxValue)]
+        [TestCase(int.MinValue)]
+        public void Run_InputIdWasOutOfTheRange_NoActionCalls(int testCase)
+        {
+            //given
+            var input = $"{testCase}\nexit\n";
+            var expected = $"Hello Test Bot, choose action and press enter when ready:\n1. test\nSorry Test Bot, there is no action registered with #{testCase}\n1. test\n";
+            TextReader reader;
+            TextWriter writer;
+            var sb = new StringBuilder();
+
+            var actor = Mock.Of<IActor>(a => a.Name == "Test Bot");
+            var action = new Mock<IAction<IActor>>();
+
+            var app = new ConsoleApplication<IActor>();
+
+            app.Register(1, "test", action.Object);
+
+            //when
+            int exitCode = -1;
+            using (reader = new StringReader(input))
+            {
+                using (writer = new StringWriter(sb))
+                {
+                    exitCode = app.Run(actor, reader, writer);
+                }
+            }
+
+            //then
+            Assert.That(exitCode, Is.EqualTo(0));
+            Assert.That(sb.ToString(), Is.EqualTo(expected));
+            action.Verify(a => a.Execute(It.IsAny<IActorContext<IActor>>()), Times.Never);
+        }
+
+        [Test]
         public void Register_ThrowsOnIdDuplication()
         {
             //given
