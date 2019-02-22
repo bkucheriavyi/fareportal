@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FPT.Console;
 using FPT.ConsoleApp;
 using NUnit.Framework;
@@ -46,7 +45,7 @@ namespace FPT.Tests
             var result = calculator.Calculate(order);
 
             //then
-            Assert.That(result.Total, Is.EqualTo(28));
+            Assert.That(result, Is.EqualTo(28));
         }
 
         [Test]
@@ -60,7 +59,7 @@ namespace FPT.Tests
             var result = calculator.Calculate(order);
 
             //then
-            Assert.That(result.Total, Is.EqualTo(0));
+            Assert.That(result, Is.EqualTo(0));
         }
     }
 }

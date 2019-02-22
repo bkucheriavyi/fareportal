@@ -5,19 +5,19 @@ namespace FPT.Console
 {
     public class DefaultBarCalculator : IBarCalculator
     {
-        public Order Calculate(Order order)
+        public double Calculate(Order order)
         {
-            double sum = 0;
+            double total = 0;
             foreach (var beverage in order.Beverages)
             {
-                sum += beverage.Price;
+                total += beverage.Price;
                 foreach (var additive in beverage.Additives)
                 {
-                    sum += additive.Price;
+                    total += additive.Price;
                 }
             }
-            order.Total = sum;
-            return order;
+           
+            return total;
         }
     }
 }

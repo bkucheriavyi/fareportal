@@ -2,6 +2,6 @@
 {
     public interface IBarCalculator
     {
-        Order Calculate(Order order);
+        double Calculate(Order order);
     }
 }

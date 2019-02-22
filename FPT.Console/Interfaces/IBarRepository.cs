@@ -4,6 +4,6 @@ namespace FPT.ConsoleApp
 {
     public interface IBarRepository<T>
     {
-        List<T> Get(int[] ids);
+        T[] Get(int[] ids);
     }
 }

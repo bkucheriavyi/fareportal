@@ -17,7 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\" />
-    <Folder Include="Application\Actions\" />
+    <Folder Include="IntegrationTests\" />
+    <Folder Include="UnitTests\" />
+    <Folder Include="UnitTests\Application\" />
+    <Folder Include="IntegrationTests\Application\" />
   </ItemGroup>
 </Project>

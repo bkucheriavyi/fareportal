@@ -1,4 +1,5 @@
 ﻿using System;
+using FPT.Console;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FPT.ConsoleApp
@@ -7,7 +8,9 @@ namespace FPT.ConsoleApp
     {
         public static int Main(string[] args)
         {
-            var barService = new BarService(null, null,null);
+            var barService = new BarService(new DefaultBeveragesRepository(),
+                                            new DefaultAdditivesRepository(),
+                                            new DefaultBarCalculator());
             var bartender = new Bartender("Joe", barService);
 
             var app = new ConsoleApplication<IBartender>();

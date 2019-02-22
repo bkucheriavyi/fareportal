@@ -17,21 +17,22 @@ namespace FPT.ConsoleApp
 
         public Order CloseOrder(Order closingOrder)
         {
-            var calculatedOrder = _calculator.Calculate(closingOrder);
-
-            //TODO:Save order into persistence store, etc
+            var total = _calculator.Calculate(closingOrder);
+            closingOrder.Total = total;
+            //TODO:Save order into persistence store and assign unique ID
             //TODO: immutable types?
-            return calculatedOrder;
+
+            return closingOrder;
         }
 
-        public IEnumerable<Additive> GetAdditives(int[] ids)
+        public Beverage[] GetBeverages(int[] ids)
         {
-            throw new System.NotImplementedException();
+            return _beverages.Get(ids);
         }
 
-        public IEnumerable<Beverage> GetBeverages(int[] ids)
+        public Additive[] GetAdditives(int[] ids)
         {
-            throw new System.NotImplementedException();
+            return _additives.Get(ids);
         }
     }
 }
